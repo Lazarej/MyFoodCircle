@@ -1,4 +1,52 @@
 
+
+export const fontConfig = {
+
+   titleLarge: {
+    fontFamily: 'System',
+    fontWeight: '600', 
+    fontSize: 24,
+    lineHeight: 28,
+    letterSpacing: 0,
+  },
+  titleMedium: {
+    fontFamily: 'System',
+    fontWeight: '600',
+    fontSize: 18,
+    lineHeight: 24,
+    letterSpacing: 0,
+  },
+  titleSmall: {
+    fontFamily: 'System',
+    fontWeight: '600',
+    fontSize: 14,
+    lineHeight: 20,
+    letterSpacing: 0.1,
+  },
+  labelMedium: {
+    fontFamily: 'System',
+    fontWeight: '600',
+    fontSize: 16,
+    lineHeight: 20,
+    letterSpacing: 0.5,
+  },
+  bodyMedium: {
+    fontFamily: 'System',
+    fontWeight: '400',
+    fontSize: 16,
+    lineHeight: 24,
+    letterSpacing: 0.15,
+  },
+  bodySmall: {
+    fontFamily: 'System',
+    fontWeight: '400',
+    fontSize: 11,
+    lineHeight: 16,
+    letterSpacing: 0.4,
+  },
+} as const;
+
+
 export const lightTheme = {
   dark: false,
   colors: {
@@ -37,6 +85,7 @@ export const lightTheme = {
     inverseOnSurface: '#F3F4F6',
     inversePrimary: '#BCC4FF',
   },
+
 };
 
 export const darkTheme = {
