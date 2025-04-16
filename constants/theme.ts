@@ -19,7 +19,7 @@ export const fontConfig = {
   titleSmall: {
     fontFamily: 'System',
     fontWeight: '600',
-    fontSize: 14,
+    fontSize: 15,
     lineHeight: 20,
     letterSpacing: 0.1,
   },
@@ -42,7 +42,7 @@ export const fontConfig = {
     fontWeight: '400',
     fontSize: 11,
     lineHeight: 16,
-    letterSpacing: 0.4,
+    letterSpacing: 0.1,
   },
 } as const;
 
