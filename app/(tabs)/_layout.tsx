@@ -25,14 +25,12 @@ export default function RootLayout() {
         screenOptions={{
           tabBarActiveTintColor: theme.colors.primary,
           tabBarInactiveTintColor: theme.colors.secondary,
-          tabBarStyle: { height: 50, paddingBottom: 0, paddingTop:5  },
-          headerStyle: { height: 70 ,},
+          tabBarStyle: { paddingBottom: 0, paddingTop:5  },
+          headerStyle: { height: 90 ,},
           headerTitleAlign: "left",
           headerTitleStyle: {
             fontSize: 24,
-            fontWeight: "bold",
-            position: "absolute",
-            top: -25,
+              marginBottom:10
           },
         }}
       >

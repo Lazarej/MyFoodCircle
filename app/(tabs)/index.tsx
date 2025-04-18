@@ -1,7 +1,7 @@
 import DefaultView from "@/components/global/defaultView";
 import RestoCard from "@/components/global/restoCard";
 import { Ionicons } from "@expo/vector-icons";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import {
   TouchableHighlight,
   View,
@@ -20,7 +20,7 @@ export default function accueil() {
     <DefaultView>
       <TouchableOpacity
         activeOpacity={0.6}
-        onPress={() => console.log(restaurants)}
+        onPress={() => router.push('/modal/modalSearch')}
         style={style.addBtn}
       >
         <View style={style.btnCont}>
