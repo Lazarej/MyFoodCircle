@@ -79,11 +79,13 @@ export const lightTheme = {
     errorContainer: '#F9DEDC',
     onErrorContainer: '#410E0B',
 
-    outline: '#79747E',
+    outline: '#E5E7EA',
     shadow: '#000000',
     inverseSurface: '#2C2C2C',
-    inverseOnSurface: '#F3F4F6',
+    inverseOnSurface: '#F9FAFB',
     inversePrimary: '#BCC4FF',
+
+
   },
 
 };
@@ -125,5 +127,7 @@ export const darkTheme = {
     inverseSurface: '#E6E1E5',
     inverseOnSurface: '#1C1B1F',
     inversePrimary: '#4E61F6',
+
+
   },
 };

@@ -1,5 +1,5 @@
 import { Tabs } from "expo-router";
-import { PaperProvider } from "react-native-paper";
+import { PaperProvider, useTheme } from "react-native-paper";
 import { lightTheme, darkTheme, fontConfig } from "../../constants/theme";
 import { useColorScheme } from "react-native";
 import AccueilIcon from "@/assets/icons/accueil";
@@ -8,20 +8,14 @@ import PartageIcon from "@/assets/icons/partages";
 import ParametreIcon from "@/assets/icons/parametre";
 import { configureFonts } from "react-native-paper";
 
-export default function RootLayout() {
-  const colorScheme = useColorScheme(); // "light" ou "dark"
+export default function TabsLayout() {
 
-  const baseTheme = colorScheme === "dark" ? lightTheme : darkTheme;
-  const fonts = configureFonts({ config: fontConfig });
-  const theme = {
-    ...baseTheme,
-    fonts,
-  };
+   const theme = useTheme()
 
   return (
-    <PaperProvider theme={theme}>
+
       <Tabs
-        key={colorScheme}
+
         screenOptions={{
           tabBarActiveTintColor: theme.colors.primary,
           tabBarInactiveTintColor: theme.colors.secondary,
@@ -71,6 +65,5 @@ export default function RootLayout() {
           }}
         />
       </Tabs>
-    </PaperProvider>
   );
 }
