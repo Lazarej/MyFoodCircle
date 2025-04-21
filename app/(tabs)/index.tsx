@@ -8,6 +8,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   FlatList,
+  Pressable,
 } from "react-native";
 import { MD3Theme, Text, useTheme } from "react-native-paper";
 import restaurants from "../../mock/resto.json";
@@ -18,8 +19,8 @@ export default function accueil() {
 
   return (
     <DefaultView>
-      <TouchableOpacity
-        activeOpacity={0.6}
+      <Pressable
+        
         onPress={() => router.push('/modal/modalSearch')}
         style={style.addBtn}
       >
@@ -35,7 +36,7 @@ export default function accueil() {
             recherchez et ajoutez vos retaurants préférés
           </Text>
         </View>
-      </TouchableOpacity>
+     </Pressable>
       <View style={style.ListTitleCont}>
         <Text variant="titleMedium">Mes restaurants récents</Text>
         <Link href={"/restaurants"} style={style.link}>

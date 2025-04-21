@@ -23,28 +23,32 @@ export default function RootLayout() {
 
 
   return (
-    <React.Fragment>
-      <StatusBar style="auto" />
-      <PaperProvider theme={theme}>
-        <Stack   key={colorScheme}>
-        <Stack.Screen
-          name="(tabs)"
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="modal/modalSearch"
-          options={{
-            presentation: "modal",
+      <React.Fragment>
+        <StatusBar style="auto" />
+        <PaperProvider theme={theme}>
+          <Stack   key={colorScheme}>
+          <Stack.Screen
+            name="(tabs)"
+            options={{
               headerShown: false,
-        
-
-            
-          }}
-        />
-      </Stack>
-      </PaperProvider>
-    </React.Fragment>
+            }}
+          />
+          <Stack.Screen
+            name="modal/modalSearch"
+            options={{
+              presentation: "modal",
+                headerShown: false,
+            }}
+            />
+            <Stack.Screen
+            name="details/[restoId].tsx"
+            options={{
+    
+          
+            }}
+          />
+        </Stack>
+        </PaperProvider>
+      </React.Fragment>
   );
 }

@@ -7,6 +7,8 @@ import RestoCard from "@/components/global/restoCard";
 import debounce from "lodash.debounce";
 import restaurants from "../../mock/resto.json";
 import Restaurant from "@/constants/type/restaurant";
+import ModalHeader from "@/components/global/modalHeader";
+import { Link } from "expo-router";
 
 export default function modalSearch() {
   const theme = useTheme();
@@ -28,7 +30,7 @@ export default function modalSearch() {
   );
 
   useEffect(() => {
-    if (searchQuery.trim() === "") {
+    if (searchQuery === "") {
       setFiltered([]); //
       return;
     }
@@ -38,9 +40,7 @@ export default function modalSearch() {
 
   return (
     <View style={style.modal}>
-      <View style={style.headerCont}>
-        <Text variant="titleMedium">Rechercher un restaurant</Text>
-      </View>
+      <ModalHeader text="Rechercher un restaurant"/>
 
       <View style={style.body}>
         <View style={style.searchCont}>
@@ -60,12 +60,11 @@ export default function modalSearch() {
           </View>
         </View>
         <FlatList
-          style={style.list}
           data={filtered}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => <RestoCard props={item} />}
           ListEmptyComponent={
-            searchQuery.trim() === "" ? (
+            searchQuery === "" ? (
               <View style={style.messageCont}>
                 <Text variant="titleMedium" style={style.message}>
                 taper pour chercher un restaurant
