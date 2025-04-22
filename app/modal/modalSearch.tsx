@@ -40,9 +40,9 @@ export default function modalSearch() {
 
   return (
     <View style={style.modal}>
-      <ModalHeader text="Rechercher un restaurant"/>
+      <ModalHeader text="Rechercher un restaurant" card={ false} />
 
-      <View style={style.body}>
+      <DefaultView color="white">
         <View style={style.searchCont}>
           <View style={style.search}>
             <AntDesign
@@ -79,13 +79,14 @@ export default function modalSearch() {
             )
           }
         />
-      </View>
+      </DefaultView>
     </View>
   );
 }
 
 const styles = (theme: MD3Theme) =>
   StyleSheet.create({
+
     modal: {
       flex: 1,
       backgroundColor:'white'
@@ -100,11 +101,6 @@ const styles = (theme: MD3Theme) =>
 
       borderBottomWidth: 1,
       borderBottomColor: theme.colors.outline,
-    },
-
-    body: {
-      flex: 1,
-      padding: 20,
     },
 
     searchCont: {

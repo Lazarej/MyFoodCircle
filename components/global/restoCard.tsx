@@ -2,15 +2,19 @@ import Entypo from "@expo/vector-icons/build/Entypo";
 import { StyleSheet, View, Platform, Image, Pressable } from "react-native";
 import { Chip, MD3Theme, Surface, Text, useTheme } from "react-native-paper";
 import Restaurant from "@/constants/type/restaurant";
-import { Link, router } from "expo-router";
+import { Link, router, usePathname } from "expo-router";
 
 export default function RestoCard({props} : {props: Restaurant}) {
   const theme = useTheme();
   const style = styles(theme);
+
+  const pathname = usePathname();
+
+
   return (
     <Pressable onPress={() => router.push({
-      pathname: '/details/1',
-      params: { id: props.id},
+      pathname: `details/${props.id}`,
+      params: { id: props.id, from: pathname, mode: 'add' },
     })}
      style={style.card}>
       <Image

@@ -18,7 +18,7 @@ export default function accueil() {
   const style = styles(theme);
 
   return (
-    <DefaultView>
+    <DefaultView color={theme.colors.background}>
       <Pressable
         
         onPress={() => router.push('/modal/modalSearch')}
