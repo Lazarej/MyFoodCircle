@@ -93,8 +93,8 @@ export const lightTheme = {
 export const darkTheme = {
   dark: true,
   colors: {
-    primary: '#BCC4FF',
-    onPrimary: '#00105A',
+    primary: '#4E61F6',
+    onPrimary: '#050505',
     primaryContainer: '#4E61F6',
     onPrimaryContainer: '#FFFFFF',
 
@@ -108,10 +108,10 @@ export const darkTheme = {
     tertiaryContainer: '#FFAA00',
     onTertiaryContainer: '#000000',
 
-    background: '#1C1B1F',
+    background: '#121114',
     onBackground: '#E6E1E5',
 
-    surface: '#1C1B1F',
+    surface: '#050505',
     onSurface: '#E6E1E5',
 
     surfaceVariant: '#444444',
@@ -122,7 +122,7 @@ export const darkTheme = {
     errorContainer: '#8C1D18',
     onErrorContainer: '#F9DEDC',
 
-    outline: '#928F99',
+    outline: '#3D3C3D',
     shadow: '#000000',
     inverseSurface: '#E6E1E5',
     inverseOnSurface: '#1C1B1F',

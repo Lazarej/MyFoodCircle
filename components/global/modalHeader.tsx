@@ -19,7 +19,7 @@ export default function ModalHeader({
           style={{ marginRight: 10 }}
           name="arrow-back-outline"
           size={24}
-          color="black"
+          color={theme.colors.onSurface}
           onPress={() => router.back()}
         />
       ) : null}

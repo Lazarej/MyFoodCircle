@@ -51,6 +51,8 @@ const styles = (theme: MD3Theme) =>
   StyleSheet.create({
     card: {
       backgroundColor: theme.colors.surface,
+      borderColor: theme.colors.background,
+      borderWidth:1,
       width: "100%",
       height: 110,
           flexDirection: "row",

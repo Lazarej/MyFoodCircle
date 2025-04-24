@@ -1,7 +1,7 @@
-import { MD3Theme, TextInput, Text, useTheme } from "react-native-paper";
+import { MD3Theme, Text, useTheme } from "react-native-paper";
 
-import { View, StyleSheet, Platform, Pressable } from "react-native";
-import React, { useState } from "react";
+import { View, StyleSheet, Platform, Pressable, TextInput } from "react-native";
+import React, { ReactNode, useState } from "react";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
 type Props = {
@@ -11,6 +11,8 @@ type Props = {
   placeholder?: string;
   editable?: boolean;
   mode?: string;
+  childrenLeft?: ReactNode;
+  childrenRight?: ReactNode;
 };
 
 export default function DefaultInput({
@@ -20,6 +22,8 @@ export default function DefaultInput({
   placeholder,
   editable,
   mode,
+  childrenLeft,
+  childrenRight
 }: Props) {
   const theme = useTheme();
   const style = styles(theme);
@@ -31,39 +35,43 @@ export default function DefaultInput({
       {mode !== "date" ? (
         <View style={style.container}>
           <Text variant="labelMedium">{label}</Text>
-          <TextInput
-            style={style.input}
-            value={value}
-                      onChangeText={onChange}
-                      mode="outlined" 
-            placeholder={placeholder}
-            placeholderTextColor="#aaa"
-            editable={editable}
-          />
+          <View style={style.searchCont}>
+            <View style={editable === false ? { ...style.search, backgroundColor: theme.colors.inverseOnSurface, } : style.search }>
+              {childrenLeft ?? null}
+              <TextInput
+                placeholder={placeholder}
+                placeholderTextColor={theme.colors.secondary}
+                onChangeText={onChange}
+                value={value}
+                editable={editable}
+                style={style.input}
+              />
+              {childrenRight ?? null}
+            </View>
+          </View>
         </View>
       ) : (
         <View style={style.container}>
           <Text variant="labelMedium">{label}</Text>
           <Pressable onPress={() => console.log("ff")}>
-            <TextInput
-              style={style.input}
-              value={value}
-              editable={editable}
-              right={<TextInput.Icon icon="calendar" />}
-            />
+            <View style={style.searchCont}>
+              <View style={{...style.search, height:55, justifyContent:'space-between'}}>
+                {childrenLeft ?? null}
+                  <DateTimePicker 
+                    
+                    maximumDate={new Date()}
+                  accentColor={theme.colors.primary}
+                  value={new Date()}
+                  mode="date"
+                  onChange={() => {
+                    setShowPicker(false);
+                    onChange;
+                  }}
+                />
+                {childrenRight ?? null}
+              </View>
+            </View>
           </Pressable>
-
-          <DateTimePicker
-            style={{ backgroundColor: theme.colors.onSurface }}
-            textColor="red"
-            accentColor={theme.colors.primary}
-            value={new Date()}
-            mode="date"
-            onChange={() => {
-              setShowPicker(false);
-              onChange;
-            }}
-          />
         </View>
       )}
     </View>
@@ -75,15 +83,33 @@ const styles = (theme: MD3Theme) =>
     container: {
       marginVertical: 15,
     },
-    input: {
-      height: 44,
-      borderWidth: 1,
+    searchCont: {
+      width: "100%",
+      justifyContent: "center",
       marginTop: 10,
-      borderColor: "#ccc",
-      borderRadius: 8,
-      backgroundColor: "white",
-      paddingHorizontal: 12,
+      height: 50,
+    
+    },
+
+    search: {
+      flexDirection: "row",
+      borderWidth: 1,
+      borderColor: theme.colors.outline,
+      borderRadius: 12,
+      height: 50,
+      alignItems: "center",
+      paddingHorizontal: 0,
+      backgroundColor: theme.colors.surface,
+        paddingRight:5,
+    },
+
+    input: {
       fontSize: 16,
-      color: "#000",
+      height: "100%",
+      color: theme.colors.secondary,
+      flex: 1,
+      lineHeight: -20,
+      paddingLeft: 10,
+      outline: "none",
     },
   });

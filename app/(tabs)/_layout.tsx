@@ -19,12 +19,13 @@ export default function TabsLayout() {
         screenOptions={{
           tabBarActiveTintColor: theme.colors.primary,
           tabBarInactiveTintColor: theme.colors.secondary,
-          tabBarStyle: { paddingBottom: 0, paddingTop:5  },
-          headerStyle: { height: 90 ,},
+          tabBarStyle: { paddingBottom: 0, paddingTop:5, backgroundColor: theme.colors.surface, borderColor: theme.colors.background, },
+          headerStyle: { height: 90 , backgroundColor: theme.colors.surface},
           headerTitleAlign: "left",
           headerTitleStyle: {
             fontSize: 24,
-              marginBottom:10
+            marginBottom: 10,
+            color:theme.colors.onSurface 
           },
         }}
       >

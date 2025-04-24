@@ -15,7 +15,7 @@ export const unstable_settings = {
 export default function RootLayout() {
     const colorScheme = useColorScheme(); // "light" ou "dark"
 
-  const baseTheme = colorScheme === "dark" ? lightTheme : darkTheme;
+  const baseTheme = colorScheme === "light" ? lightTheme : darkTheme;
   const fonts = configureFonts({ config: fontConfig });
   const theme = {
     ...baseTheme,
@@ -43,7 +43,9 @@ export default function RootLayout() {
             />
             <Stack.Screen
             name="details/[restoId]"
-            options={{    headerShown: false,
+            options={{
+              headerShown: false,
+              
             }}
           />
         </Stack>

@@ -42,7 +42,7 @@ export default function modalSearch() {
     <View style={style.modal}>
       <ModalHeader text="Rechercher un restaurant" card={ false} />
 
-      <DefaultView color="white">
+      <DefaultView color={theme.colors.surface}>
         <View style={style.searchCont}>
           <View style={style.search}>
             <AntDesign
@@ -89,7 +89,7 @@ const styles = (theme: MD3Theme) =>
 
     modal: {
       flex: 1,
-      backgroundColor:'white'
+      backgroundColor: theme.colors.surface
     },
 
     headerCont: {
@@ -98,7 +98,6 @@ const styles = (theme: MD3Theme) =>
       height: 100,
       justifyContent: "center",
       alignItems: "flex-start",
-
       borderBottomWidth: 1,
       borderBottomColor: theme.colors.outline,
     },
