@@ -3,6 +3,7 @@ import { MD3Theme, Text, useTheme } from "react-native-paper";
 import { View, StyleSheet, Platform, Pressable, TextInput } from "react-native";
 import React, { ReactNode, useState } from "react";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { SearchBar } from "react-native-screens";
 
 type Props = {
   label: string;
@@ -23,20 +24,27 @@ export default function DefaultInput({
   editable,
   mode,
   childrenLeft,
-  childrenRight
+  childrenRight,
 }: Props) {
   const theme = useTheme();
   const style = styles(theme);
 
   const [showPicker, setShowPicker] = useState(false);
 
-  return (
-    <View>
-      {mode !== "date" ? (
-        <View style={style.container}>
+  const modes = {
+  input: <View style={style.container}>
           <Text variant="labelMedium">{label}</Text>
           <View style={style.searchCont}>
-            <View style={editable === false ? { ...style.search, backgroundColor: theme.colors.inverseOnSurface, } : style.search }>
+            <View
+              style={
+                editable === false
+                  ? {
+                      ...style.search,
+                      backgroundColor: theme.colors.inverseOnSurface,
+                    }
+                  : style.search
+              }
+            >
               {childrenLeft ?? null}
               <TextInput
                 placeholder={placeholder}
@@ -49,17 +57,21 @@ export default function DefaultInput({
               {childrenRight ?? null}
             </View>
           </View>
-        </View>
-      ) : (
-        <View style={style.container}>
+        </View>,
+  date: <View style={style.container}>
           <Text variant="labelMedium">{label}</Text>
           <Pressable onPress={() => console.log("ff")}>
             <View style={style.searchCont}>
-              <View style={{...style.search, height:55, justifyContent:'space-between'}}>
+              <View
+                style={{
+                  ...style.search,
+                  height: 55,
+                  justifyContent: "space-between",
+                }}
+              >
                 {childrenLeft ?? null}
-                  <DateTimePicker 
-                    
-                    maximumDate={new Date()}
+                <DateTimePicker
+                  maximumDate={new Date()}
                   accentColor={theme.colors.primary}
                   value={new Date()}
                   mode="date"
@@ -72,10 +84,38 @@ export default function DefaultInput({
               </View>
             </View>
           </Pressable>
-        </View>
-      )}
-    </View>
-  );
+        </View>,
+  textarea: <View style={style.container}>
+          <Text variant="labelMedium">{label}</Text>
+          <View style={{...style.searchCont, height:250}}>
+            <View
+              style={
+          {...style.search, height:250,}
+              }
+            >
+              {childrenLeft ?? null}
+              <TextInput
+                placeholder={placeholder}
+                placeholderTextColor={theme.colors.secondary}
+          onChangeText={onChange}
+          multiline={true}
+          
+                value={value}
+                editable={editable}
+                style={{...style.input, textAlignVertical: 'top', height:250,  padding:15}}
+              />
+              {childrenRight ?? null}
+            </View>
+          </View>
+        </View>,
+};
+
+return (
+  <View>
+    {modes[mode] ?? <Text>❓ Mode inconnu</Text>}
+  </View>
+);
+
 }
 
 const styles = (theme: MD3Theme) =>
@@ -88,7 +128,6 @@ const styles = (theme: MD3Theme) =>
       justifyContent: "center",
       marginTop: 10,
       height: 50,
-    
     },
 
     search: {
@@ -100,7 +139,7 @@ const styles = (theme: MD3Theme) =>
       alignItems: "center",
       paddingHorizontal: 0,
       backgroundColor: theme.colors.surface,
-        paddingRight:5,
+      paddingRight: 5,
     },
 
     input: {

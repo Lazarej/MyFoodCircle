@@ -5,6 +5,7 @@ import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { useColorScheme } from "react-native";
 import { configureFonts, PaperProvider } from "react-native-paper";
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export const unstable_settings = {
   initialRouteName: "(tabs)",
@@ -26,6 +27,7 @@ export default function RootLayout() {
   return (
       <React.Fragment>
         <StatusBar style="auto" />
+      <GestureHandlerRootView>
         <PaperProvider theme={theme}>
           <Stack   key={colorScheme}>
           <Stack.Screen
@@ -50,6 +52,7 @@ export default function RootLayout() {
           />
         </Stack>
         </PaperProvider>
+        </GestureHandlerRootView>
       </React.Fragment>
   );
 }

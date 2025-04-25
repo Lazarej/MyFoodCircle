@@ -34,7 +34,7 @@ const styles = (theme: MD3Theme) =>
       paddingLeft: 20,
       width: "100%",
       height: 100,
-
+      backgroundColor: theme.colors.surface,
       flexDirection: "row",
       alignItems: "center",
 
