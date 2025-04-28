@@ -19,12 +19,12 @@ export default function TabsLayout() {
         screenOptions={{
           tabBarActiveTintColor: theme.colors.primary,
           tabBarInactiveTintColor: theme.colors.secondary,
-          tabBarStyle: { paddingBottom: 0, paddingTop:5, backgroundColor: theme.colors.surface, borderColor: theme.colors.background, },
-          headerStyle: { height: 90 , backgroundColor: theme.colors.surface},
+          tabBarStyle: { paddingBottom: 0, paddingTop:5, backgroundColor: theme.colors.surface, borderColor: theme.colors.background, height:70 },
+          headerStyle: { backgroundColor: theme.colors.surface, height:70},
           headerTitleAlign: "left",
           headerTitleStyle: {
             fontSize: 24,
-            marginBottom: 10,
+            marginTop:-50,
             color:theme.colors.onSurface 
           },
         }}
@@ -40,7 +40,8 @@ export default function TabsLayout() {
         />
         <Tabs.Screen
           name="restaurants"
-          options={{
+        options={{
+            headerStyle:{shadowColor: 'transparent' , height:70, backgroundColor: theme.colors.surface},
             title: "Restaurants",
             tabBarIcon: ({ color }: { color: string }) => (
               <RestaurantIcon color={color} />

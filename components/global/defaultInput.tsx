@@ -40,7 +40,7 @@ export default function DefaultInput({
                 editable === false
                   ? {
                       ...style.search,
-                      backgroundColor: theme.colors.inverseOnSurface,
+                      backgroundColor: theme.colors.background,
                     }
                   : style.search
               }

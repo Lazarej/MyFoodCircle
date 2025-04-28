@@ -33,7 +33,7 @@ const styles = (theme: MD3Theme) =>
     headerCont: {
       paddingLeft: 20,
       width: "100%",
-      height: 100,
+      height: 70,
       backgroundColor: theme.colors.surface,
       flexDirection: "row",
       alignItems: "center",

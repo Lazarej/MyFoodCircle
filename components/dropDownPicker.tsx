@@ -3,6 +3,7 @@ import { ReactNode, useState } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import { MD3Theme, Text, useTheme } from "react-native-paper";
 import data from "./../mock/categories.json";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default function DropDownPicker({ label }: { label: string }) {
   const theme = useTheme();
@@ -38,16 +39,16 @@ export default function DropDownPicker({ label }: { label: string }) {
           />
         </View>
       </View>
-      <View
+      <ScrollView
         style={open ? style.dropDown : { ...style.dropDown, height: 0, paddingTop: 0,
       paddingLeft: 0, }}
       >
-        <FlatList
-          data={data.cuisines}
-           keyExtractor={(id) => id.toString()}
-          renderItem={({ item }) => <Text onPress={ () => GetValue(item)} style={style.dropDownItem}  variant="bodyMedium">{item}</Text>}
-        />
-      </View>
+        {data.cuisines.map((item, index) => (
+
+          <Text key={ index} onPress={ () => GetValue(item)} style={style.dropDownItem}  variant="bodyMedium">{item}</Text>
+
+            ))}
+      </ScrollView>
     </View>
   );
 }

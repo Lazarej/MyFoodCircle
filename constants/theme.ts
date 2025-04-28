@@ -82,7 +82,7 @@ export const lightTheme = {
     outline: '#E5E7EA',
     shadow: '#000000',
     inverseSurface: '#2C2C2C',
-    inverseOnSurface: '#F9FAFB',
+    inverseOnSurface: '#B8B8B8',
     inversePrimary: '#BCC4FF',
 
 
@@ -122,10 +122,10 @@ export const darkTheme = {
     errorContainer: '#8C1D18',
     onErrorContainer: '#F9DEDC',
 
-    outline: '#3D3C3D',
+    outline: '#1F1F1F',
     shadow: '#000000',
     inverseSurface: '#E6E1E5',
-    inverseOnSurface: '#1C1B1F',
+    inverseOnSurface: '#050000',
     inversePrimary: '#4E61F6',
 
 

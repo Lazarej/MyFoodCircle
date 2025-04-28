@@ -15,9 +15,9 @@ export default function RatingPrice({ label }: { label: string }) {
       <Text variant="labelMedium">{label}</Text>
       <View style={style.searchCont}>
         {Array.from({ length: prices }).map((_, index) => (
-            <Pressable onPress={() => setRating( prev => prev =  index + 1)} style={rating === index + 1 ? {...style.chip, backgroundColor:theme.colors.primary} : style.chip}> 
-                {Array.from({ length: index + 1 }).map(() => (
-            <Foundation name="euro" size={24} color={rating === index + 1 ? theme.colors.surface : theme.colors.inverseOnSurface } />
+            <Pressable key={index} onPress={() => setRating( prev => prev =  index + 1)} style={rating === index + 1 ? {...style.chip, backgroundColor:theme.colors.primary} : style.chip}> 
+                {Array.from({ length: index + 1 }).map((_,i) => (
+            <Foundation key={i} name="euro" size={24} color={rating === index + 1 ? theme.colors.onPrimary : theme.colors.inverseOnSurface } />
         ))}
          </Pressable>
         ))}

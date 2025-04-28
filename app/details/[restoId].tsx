@@ -10,9 +10,9 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 import { useLocalSearchParams } from "expo-router";
 import { useState } from "react";
-import { KeyboardAvoidingView, Platform, StyleSheet, View } from "react-native";
+import { KeyboardAvoidingView, Button, Platform, StyleSheet, View, TouchableOpacity, Modal } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import { Chip, List, MD3Theme, Text, useTheme } from "react-native-paper";
+import { MD3Theme,useTheme, Text } from "react-native-paper";
 
 export default function RestaurantData() {
   const theme = useTheme();
@@ -22,79 +22,86 @@ export default function RestaurantData() {
   const [email, setEmail] = useState("");
 
   return (
-     <KeyboardAvoidingView
-      style={{ flex: 1 }}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-
-    >
-  
+    <View style={{ flex: 1 }}>
         <ModalHeader
-          card={from === "/modal/modalSearch" ? false : true}
-          text="Modifier un restaurant"
-        />
+        card={from === "/modal/modalSearch" ? false : true}
+        text="Modifier un restaurant"
+      />
+      <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
+    
 
-        <ScrollView
-           style={{ flex: 1, backgroundColor: theme.colors.surface }}
-    contentContainerStyle={{ paddingBottom: 40 }}
-    keyboardShouldPersistTaps="handled"
-        >
-          <DefaultView color={theme.colors.surface}>
-            <DefaultInput
-              label="Nom"
-              value={"Le triangle"}
-              onChange={setEmail}
-              editable={false}
-              childrenRight={
-                <MaterialIcons
-                  name="do-not-disturb"
-                  size={24}
-                  color={theme.colors.error}
-                />
-              }
-              mode="input"
-            />
-            <DefaultInput
-              label="Adresse"
-              value={"Une adresse quelconque"}
-              onChange={setEmail}
-              editable={false}
-              childrenRight={
-                <MaterialIcons
-                  name="do-not-disturb"
-                  size={24}
-                  color={theme.colors.error}
-                />
-              }
-              mode="input"
-            />
-            <DefaultInput
-              label="Date"
-              value={null}
-              mode="date"
-              onChange={setEmail}
-              editable={false}
-              childrenRight={
-                <Ionicons
-                  name="calendar-clear-outline"
-                  size={24}
-                  color={theme.colors.onBackground}
-                />
-              }
-            />
-            <DropDownPicker label="Catégories" />
-            <RatingStars label="Note" />
-            <RatingPrice label="Prix" />
-            <DefaultInput
-              label="Description"
-              value={""}
-              onChange={setEmail}
-              mode="textarea"
-              editable={true}
-            />
-          </DefaultView>
-        </ScrollView>
-      
-    </KeyboardAvoidingView>
+      <ScrollView
+        style={{ flex: 1, backgroundColor: theme.colors.surface }}
+        contentContainerStyle={{ paddingBottom: 100 }}
+        keyboardShouldPersistTaps="handled"
+      >
+        <DefaultView color={theme.colors.surface}>
+          <DefaultInput
+            label="Nom"
+            value={"Le triangle"}
+            onChange={setEmail}
+            editable={false}
+            childrenRight={
+              <MaterialIcons
+                name="do-not-disturb"
+                size={24}
+                color={theme.colors.error}
+              />
+            }
+            mode="input"
+          />
+          <DefaultInput
+            label="Adresse"
+            value={"Une adresse quelconque"}
+            onChange={setEmail}
+            editable={false}
+            childrenRight={
+              <MaterialIcons
+                name="do-not-disturb"
+                size={24}
+                color={theme.colors.error}
+              />
+            }
+            mode="input"
+          />
+          <DefaultInput
+            label="Date"
+            value={null}
+            mode="date"
+            onChange={setEmail}
+            editable={false}
+            childrenRight={
+              <Ionicons
+                name="calendar-clear-outline"
+                size={24}
+                color={theme.colors.onBackground}
+              />
+            }
+          />
+          <DropDownPicker label="Catégories" />
+          <RatingStars label="Note" />
+          <RatingPrice label="Prix" />
+          <DefaultInput
+            label="Description"
+            value={""}
+            onChange={setEmail}
+            mode="textarea"
+            editable={true}
+          />
+        </DefaultView>
+      </ScrollView>
+      </KeyboardAvoidingView>
+         <View style={style.footer}>
+        <TouchableOpacity style={style.button}>
+          <Text style={{color:theme.colors.onPrimary}} variant="titleMedium">Valider</Text>
+        </TouchableOpacity>
+    
+      </View>
+
+    </View>
   );
 }
 
@@ -110,4 +117,26 @@ const styles = (theme: MD3Theme) =>
       borderRadius: 15,
       backgroundColor: theme.colors.surface,
     },
+     footer: {
+       position: 'absolute',
+       height: 90,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: theme.colors.surface, // pour cacher ce qui scrolle dessous
+    padding: 15,
+       borderTopWidth: 1,
+       justifyContent: "center",
+    alignItems:'center',
+    borderColor: theme.colors.outline,
+     
+  },
+  button: {
+    backgroundColor: theme.colors.primary,
+    paddingVertical: 12,
+    paddingHorizontal: 25,
+
+    borderRadius: 8,
+  },
+
   });

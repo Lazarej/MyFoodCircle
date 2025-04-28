@@ -21,7 +21,7 @@ export default function RatingStars({ label }: { label: string }) {
             style={{ marginHorizontal: 5, marginTop: 10 }}
             name={index < rating ? "star" : "star-o"}
             size={40}
-            color={theme.colors.tertiary}
+            color={index < rating ? theme.colors.tertiary : theme.colors.outline  }
           />
         ))}
       </View>
