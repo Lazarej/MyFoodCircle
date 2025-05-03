@@ -2,7 +2,7 @@ import DefaultView from "@/components/global/defaultView";
 import { HalfModal } from "@/components/global/halfModal";
 import Ionicons from "@expo/vector-icons/build/Ionicons";
 import { Stack } from "expo-router";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   Pressable,
   ScrollView,
@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { Modalize } from "react-native-modalize";
 import { MD3Theme, Text, useTheme } from "react-native-paper";
 
 export default function Restaurant() {
@@ -17,12 +18,10 @@ export default function Restaurant() {
   const style = styles(theme);
   const [headerState, setHeaderState] = useState("Voir tout");
   const mainFilter = ["Voir tout", "Favoris", "2025", "Voir ", "Oui", "205"];
-  const [isModalVisible, setModalVisible] = useState(false);
+  const modalRef = useRef<Modalize>(null);
   
 
-    const toggleModal = () => {
-    setModalVisible(!isModalVisible);
-  };
+
 
 
   return (
@@ -31,7 +30,7 @@ export default function Restaurant() {
         options={{
           headerRight: () => (
             <View>
-              <TouchableOpacity style={style.filterBtn} onPress={() =>toggleModal()}>
+              <TouchableOpacity style={style.filterBtn} onPress={() => modalRef.current?.open()}>
                 <Ionicons
                   name="filter"
                   size={17}
@@ -78,7 +77,7 @@ export default function Restaurant() {
         </DefaultView>
        
       </View>
-       <HalfModal visible={isModalVisible} fnc={toggleModal } />
+       <HalfModal modalRef={modalRef} />
     </>
   );
 }

@@ -1,59 +1,58 @@
-import React, { useState } from 'react';
+import React, { Ref, useState } from 'react';
 import { View, Text, Button, StyleSheet, Dimensions } from 'react-native';
 import Modal from 'react-native-modal';
+import { Modalize } from 'react-native-modalize';
+import { Portal, useTheme } from 'react-native-paper';
 
 
 
-export function HalfModal  ({visible, fnc} : {visible: boolean , fnc: Function}) {
-
-
-
-
-  if (!visible) return null; // <-- Important : ne rien afficher si pas visible !
-
-  return (
-   <Modal
-    isVisible={visible}
-     
-  onBackdropPress={() => fnc()}
-  style={styles.modal}
-  swipeDirection="down"
-  onSwipeComplete={() => fnc()}
-  propagateSwipe={true}
-  animationIn="slideInUp"
-  animationOut="slideOutDown"
-  useNativeDriver={false} // << pour autoriser swipe
-  hideModalContentWhileAnimating={true}
-  backdropTransitionOutTiming={0}
-
-
+export function HalfModal({ modalRef }: { modalRef: Ref<Modalize> }) {
+    const theme = useTheme();
+ return (
+   <Portal>
+     <Modalize
+      ref={modalRef}
+      adjustToContentHeight 
+      withHandle            
+      handlePosition="inside"
+      panGestureEnabled     
+      disableScrollIfPossible
+      closeOnOverlayTap     
+       modalStyle={styles.modal}
+       overlayStyle={{ backgroundColor: `${theme.colors.inverseSurface}46`}} 
     >
-      <View style={styles.modalContent}>
-        <Text style={styles.text}>Ceci est une modal demi-écran !</Text>
-        <Button title="Fermer" onPress={() => fnc()} />
+      <View style={styles.content}>
+        <Text style={styles.title}>Bonjour 👋</Text>
+        <Text style={styles.paragraph}>
+          Ceci est une modal dont la hauteur s’adapte au contenu. 
+          On ne peut pas la swiper vers le haut.
+        </Text>
+        <Text style={styles.paragraph}>
+          Swipe vers le bas ou tape à l’extérieur pour la fermer.
+        </Text>
       </View>
-    </Modal>
+    </Modalize>
+    </Portal>
   );
-}
-
-const { height } = Dimensions.get('window');
+};
 
 const styles = StyleSheet.create({
-
   modal: {
-    justifyContent: 'flex-end',
-    margin: 0, // Important pour que la modal prenne tout l'écran et parte du bas
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
+    paddingHorizontal: 20,
+    backgroundColor: '#fff',
   },
-  modalContent: {
-    height: height / 2, // Moitié de l'écran
-    backgroundColor: 'white',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    padding: 20,
+  content: {
+    paddingVertical: 20,
   },
-  text: {
-    fontSize: 18,
-    textAlign: 'center',
+  title: {
+    fontSize: 20,
+    fontWeight: '600',
+    marginBottom: 10,
+  },
+  paragraph: {
+    fontSize: 16,
     marginBottom: 10,
   },
 });

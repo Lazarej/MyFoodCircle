@@ -32,7 +32,7 @@ export default function TabsLayout() {
         <Tabs.Screen
           name="index"
           options={{
-            title: "Bienvenue User",
+            title: "Bienvenue User 👋",
             tabBarIcon: ({ color }: { color: string }) => (
               <AccueilIcon color={color} />
             ),
