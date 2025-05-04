@@ -1,10 +1,10 @@
 import { FontAwesome } from "@expo/vector-icons";
 import AntDesign from "@expo/vector-icons/build/AntDesign";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { MD3Theme, Text, useTheme } from "react-native-paper";
 
-export default function RatingStars({ label }: { label: string }) {
+export default function StarPicker({ label }: { label: string }) {
   const theme = useTheme();
   const style = styles(theme);
   const stars = 5;
@@ -14,6 +14,7 @@ export default function RatingStars({ label }: { label: string }) {
     <View style={style.container}>
       <Text variant="labelMedium">{label}</Text>
       <View style={style.searchCont}>
+
         {Array.from({ length: stars }).map((_, index) => (
           <FontAwesome
             key={index}

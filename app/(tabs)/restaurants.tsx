@@ -2,27 +2,50 @@ import DefaultView from "@/components/global/defaultView";
 import { HalfModal } from "@/components/global/halfModal";
 import Ionicons from "@expo/vector-icons/build/Ionicons";
 import { Stack } from "expo-router";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   Pressable,
   ScrollView,
+  SectionList,
   StyleSheet,
   TouchableOpacity,
   View,
 } from "react-native";
 import { Modalize } from "react-native-modalize";
 import { MD3Theme, Text, useTheme } from "react-native-paper";
+import resto from "../../mock/resto.json";
+import Restaurant from "@/constants/type/restaurant";
+import RestoCard from "@/components/global/restoCard";
 
-export default function Restaurant() {
+export default function RestaurantView() {
   const theme = useTheme();
   const style = styles(theme);
   const [headerState, setHeaderState] = useState("Voir tout");
   const mainFilter = ["Voir tout", "Favoris", "2025", "Voir ", "Oui", "205"];
   const modalRef = useRef<Modalize>(null);
-  
+  const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
 
 
+  useEffect(() => {
+    setRestaurants((prev) => (prev = resto));
+  }, []);
 
+  // Transforme les données en sections par année
+
+  const groupByYear = (data: Restaurant[]) => {
+    const grouped = data.reduce(
+      (acc: Record<string, Restaurant[]>, item: Restaurant) => {
+        const year = new Date(item.createdAt).getFullYear();
+        acc[year] = acc[year] ? [...acc[year], item] : [item];
+        return acc;
+      },
+      {}
+    );
+    return Object.entries(grouped)
+      .sort(([a], [b]) => Number(b) - Number(a))
+      .map(([year, items]) => ({ title: year, data: items }));
+  };
+  const sections = useMemo(() => groupByYear(restaurants), [restaurants]);
 
   return (
     <>
@@ -30,7 +53,10 @@ export default function Restaurant() {
         options={{
           headerRight: () => (
             <View>
-              <TouchableOpacity style={style.filterBtn} onPress={() => modalRef.current?.open()}>
+              <TouchableOpacity
+                style={style.filterBtn}
+                onPress={() => modalRef.current?.open()}
+              >
                 <Ionicons
                   name="filter"
                   size={17}
@@ -73,11 +99,19 @@ export default function Restaurant() {
           </ScrollView>
         </View>
         <DefaultView color={theme.colors.background}>
-          <Text>fe</Text>
+          <SectionList
+            sections={sections}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item }) => <RestoCard props={item} />}
+      
+            renderSectionHeader={({ section: { title } }) => (
+              <Text style={{ marginBottom: 20}} variant="titleMedium">{title}</Text>
+            )}
+            stickySectionHeadersEnabled={true}
+          />
         </DefaultView>
-       
       </View>
-       <HalfModal modalRef={modalRef} />
+      <HalfModal modalRef={modalRef} />
     </>
   );
 }
@@ -85,7 +119,7 @@ export default function Restaurant() {
 const styles = (theme: MD3Theme) =>
   StyleSheet.create({
     filterBtn: {
-      marginTop:-40,
+      marginTop: -40,
       padding: 7,
       marginRight: 15,
       borderColor: theme.colors.outline,
@@ -100,7 +134,7 @@ const styles = (theme: MD3Theme) =>
       borderBottomColor: theme.colors.outline,
       borderBottomWidth: 1,
       alignItems: "center",
-      flexDirection: 'row'
+      flexDirection: "row",
     },
 
     chip: {

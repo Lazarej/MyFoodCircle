@@ -2,8 +2,10 @@ import DropDownPicker from "@/components/dropDownPicker";
 import DefaultInput from "@/components/global/defaultInput";
 import DefaultView from "@/components/global/defaultView";
 import ModalHeader from "@/components/global/modalHeader";
-import RatingPrice from "@/components/global/ratingPrice";
-import RatingStars from "@/components/global/ratingStars";
+import PricePicker from "@/components/global/PricePicker";
+
+import StarPicker from "@/components/global/starsPicker";
+
 
 import Ionicons from "@expo/vector-icons/build/Ionicons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
@@ -82,8 +84,8 @@ export default function RestaurantData() {
             }
           />
           <DropDownPicker label="Catégories" />
-          <RatingStars label="Note" />
-          <RatingPrice label="Prix" />
+          <StarPicker label="Note" />
+          <PricePicker label="Prix" />
           <DefaultInput
             label="Description"
             value={""}

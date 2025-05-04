@@ -13,7 +13,7 @@ import {
 import { MD3Theme, Text, useTheme } from "react-native-paper";
 import restaurants from "../../mock/resto.json";
 
-export default function accueil() {
+export default function accueilView() {
   const theme = useTheme();
   const style = styles(theme);
 

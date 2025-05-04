@@ -2,12 +2,18 @@ import React, { Ref, useState } from 'react';
 import { View, Text, Button, StyleSheet, Dimensions } from 'react-native';
 import Modal from 'react-native-modal';
 import { Modalize } from 'react-native-modalize';
-import { Portal, useTheme } from 'react-native-paper';
+import { MD3Theme, Portal, useTheme } from 'react-native-paper';
+import ModalHeader from './modalHeader';
+import DefaultView from './defaultView';
+import PricePicker from './PricePicker';
+import CuisinePicker from './cuisinePicker';
+import data from "./../../mock/categories.json";
 
 
 
 export function HalfModal({ modalRef }: { modalRef: Ref<Modalize> }) {
-    const theme = useTheme();
+  const theme = useTheme();
+    const style = styles(theme);
  return (
    <Portal>
      <Modalize
@@ -18,33 +24,31 @@ export function HalfModal({ modalRef }: { modalRef: Ref<Modalize> }) {
       panGestureEnabled     
       disableScrollIfPossible
       closeOnOverlayTap     
-       modalStyle={styles.modal}
+       modalStyle={style.modal}
        overlayStyle={{ backgroundColor: `${theme.colors.inverseSurface}46`}} 
     >
-      <View style={styles.content}>
-        <Text style={styles.title}>Bonjour 👋</Text>
-        <Text style={styles.paragraph}>
-          Ceci est une modal dont la hauteur s’adapte au contenu. 
-          On ne peut pas la swiper vers le haut.
-        </Text>
-        <Text style={styles.paragraph}>
+
+        <ModalHeader text="Filtres" card={false} />
+       <DefaultView color={theme.colors.surface}>
+         <CuisinePicker label='Type de cuisines' cuisines={[ 'Tous', ...data.cuisines]}/>
+           <PricePicker childrenValue='Tous' label='Gamme de prix'/>
+        <Text style={style.paragraph}>
           Swipe vers le bas ou tape à l’extérieur pour la fermer.
         </Text>
-      </View>
+        </DefaultView>
+ 
     </Modalize>
     </Portal>
   );
 };
 
-const styles = StyleSheet.create({
+const styles = (theme: MD3Theme) =>
+  StyleSheet.create({
   modal: {
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
-    paddingHorizontal: 20,
-    backgroundColor: '#fff',
-  },
-  content: {
-    paddingVertical: 20,
+      backgroundColor: theme.colors.surface,
+     overflow: 'hidden'
   },
   title: {
     fontSize: 20,
