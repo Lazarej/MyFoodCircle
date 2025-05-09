@@ -1,29 +1,30 @@
 import Entypo from "@expo/vector-icons/build/Entypo";
-import { StyleSheet, View, Platform, Image, Pressable } from "react-native";
+import { StyleSheet, View, Platform, Image, Pressable, TouchableOpacity } from "react-native";
 import { Chip, MD3Theme, Surface, Text, useTheme } from "react-native-paper";
 import Restaurant from "@/constants/type/restaurant";
 import { Link, router, usePathname } from "expo-router";
+import { ReactNode } from "react";
 
-export default function RestoCard({props} : {props: Restaurant}) {
+export default function RestoCard({ props,childrenBtnUp }: { props: Restaurant, childrenBtnUp?: ReactNode }) {
   const theme = useTheme();
   const style = styles(theme);
 
   const pathname = usePathname();
 
-
   return (
-    <Pressable onPress={() => router.push({
-      pathname: `details/${props.id}`,
-      params: { id: props.id, from: pathname, mode: 'add' },
-    })}
-     style={style.card}>
-      <Image
-        style={style.imageCard}
-        source={{ uri: props.image }}
-      />
+    <Pressable
+      onPress={() =>
+        router.push({
+          pathname: `details/${props.id}`,
+          params: { id: props.id, from: pathname, mode: "add" },
+        })
+      }
+      style={style.card}
+    >
+      <Image style={style.imageCard} source={{ uri: props.image }} />
       <View style={style.infoBtnCont}>
         <View style={style.infoCont}>
-                  <Text variant="titleSmall">{props.title}</Text>
+          <Text variant="titleSmall">{props.title}</Text>
           <View style={style.chip}>
             <Text variant="bodySmall">{props.cuisine}</Text>
           </View>
@@ -40,8 +41,9 @@ export default function RestoCard({props} : {props: Restaurant}) {
             {props.createdAt}
           </Text>
         </View>
-
-        <View></View>
+      </View>
+      <View style={style.btnCont}>
+          {childrenBtnUp}
       </View>
     </Pressable>
   );
@@ -52,11 +54,12 @@ const styles = (theme: MD3Theme) =>
     card: {
       backgroundColor: theme.colors.surface,
       borderColor: theme.colors.background,
-      borderWidth:1,
+      borderWidth: 1,
       width: "100%",
-      height: 110,
-          flexDirection: "row",
-      marginBottom:20,
+      height: 112,
+      overflow: "hidden",
+      flexDirection: "row",
+      marginBottom: 20,
       borderRadius: 12,
       ...Platform.select({
         ios: {
@@ -83,8 +86,8 @@ const styles = (theme: MD3Theme) =>
       borderBottomRightRadius: 12,
     },
 
-      infoCont: {
-        height:'100%',
+    infoCont: {
+      height: "100%",
       paddingTop: 5,
       paddingBottom: 5,
       flexDirection: "column",
@@ -106,4 +109,12 @@ const styles = (theme: MD3Theme) =>
       flexDirection: "row",
       alignItems: "flex-end",
     },
+
+    btnCont: {
+      height: '100%',
+      padding: 5,
+      justifyContent: 'space-between',
+    },
+
+
   });

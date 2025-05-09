@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { MD3Theme, Text, useTheme } from "react-native-paper";
 import restaurants from "../../mock/resto.json";
+import ShareBtn from "@/components/global/shareBtn";
 
 export default function accueilView() {
   const theme = useTheme();
@@ -20,8 +21,7 @@ export default function accueilView() {
   return (
     <DefaultView color={theme.colors.background}>
       <Pressable
-        
-        onPress={() => router.push('/modal/modalSearch')}
+        onPress={() => router.push("/modal/modalSearch")}
         style={style.addBtn}
       >
         <View style={style.btnCont}>
@@ -36,7 +36,7 @@ export default function accueilView() {
             recherchez et ajoutez vos retaurants préférés
           </Text>
         </View>
-     </Pressable>
+      </Pressable>
       <View style={style.ListTitleCont}>
         <Text variant="titleMedium">Mes restaurants récents</Text>
         <Link href={"/restaurants"} style={style.link}>
@@ -46,7 +46,9 @@ export default function accueilView() {
       <FlatList
         data={restaurants}
         keyExtractor={(item) => item.id.toString()} // ← id doit être string
-        renderItem={({ item }) => <RestoCard props={item} />}
+        renderItem={({ item }) => (
+          <RestoCard props={item} childrenBtnUp={<ShareBtn props={item}/>} />
+        )}
       />
     </DefaultView>
   );

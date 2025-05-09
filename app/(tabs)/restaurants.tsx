@@ -16,6 +16,11 @@ import { MD3Theme, Text, useTheme } from "react-native-paper";
 import resto from "../../mock/resto.json";
 import Restaurant from "@/constants/type/restaurant";
 import RestoCard from "@/components/global/restoCard";
+import ShareBtn from "@/components/global/shareBtn";
+import PricePicker from "@/components/global/PricePicker";
+import CuisinePicker from "@/components/global/cuisinePicker";
+import data from "./../../mock/categories.json";
+
 
 export default function RestaurantView() {
   const theme = useTheme();
@@ -25,12 +30,9 @@ export default function RestaurantView() {
   const modalRef = useRef<Modalize>(null);
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
 
-
   useEffect(() => {
     setRestaurants((prev) => (prev = resto));
   }, []);
-
-  // Transforme les données en sections par année
 
   const groupByYear = (data: Restaurant[]) => {
     const grouped = data.reduce(
@@ -102,16 +104,29 @@ export default function RestaurantView() {
           <SectionList
             sections={sections}
             keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item }) => <RestoCard props={item} />}
-      
+            renderItem={({ item }) => (
+              <RestoCard
+                props={item}
+                childrenBtnUp={
+                <ShareBtn props={item}/>
+                }
+              />
+            )}
             renderSectionHeader={({ section: { title } }) => (
-              <Text style={{ marginBottom: 20}} variant="titleMedium">{title}</Text>
+              <Text style={{ marginBottom: 20 }} variant="titleMedium">
+                {title}
+              </Text>
             )}
             stickySectionHeadersEnabled={true}
           />
         </DefaultView>
       </View>
-      <HalfModal modalRef={modalRef} />
+      <HalfModal titre="Filtre" modalRef={modalRef}>
+        <View>
+          <CuisinePicker label='Type de cuisines' cuisines={[ 'Tous', ...data.cuisines]}/>
+           <PricePicker childrenValue='Tous' label='Gamme de prix'/>
+         </View>
+      </HalfModal>
     </>
   );
 }
@@ -125,6 +140,7 @@ const styles = (theme: MD3Theme) =>
       borderColor: theme.colors.outline,
       borderWidth: 1,
       borderRadius: 6,
+      backgroundColor: theme.colors.background,
     },
 
     header: {
@@ -146,4 +162,5 @@ const styles = (theme: MD3Theme) =>
     },
 
     chipText: { color: theme.colors.inverseOnSurface, fontWeight: 700 },
+
   });

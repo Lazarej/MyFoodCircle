@@ -2,14 +2,14 @@ import Entypo from "@expo/vector-icons/build/Entypo";
 import { ReactNode, useState } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import { MD3Theme, Text, useTheme } from "react-native-paper";
-import data from "./../mock/categories.json";
+
 import { ScrollView } from "react-native-gesture-handler";
 
-export default function DropDownPicker({ label }: { label: string }) {
+export default function DropDownPicker({ label, data }: { label: string, data: string[] }) {
   const theme = useTheme();
   const style = styles(theme);
 
-  const [value, setValue] = useState("Francais");
+  const [value, setValue] = useState(data[0]);
   const [open, setOpen] = useState(false);
   
   const GetValue = (item: string) => {
@@ -43,7 +43,7 @@ export default function DropDownPicker({ label }: { label: string }) {
         style={open ? style.dropDown : { ...style.dropDown, height: 0, paddingTop: 0,
       paddingLeft: 0, }}
       >
-        {data.cuisines.map((item, index) => (
+        {data.map((item, index) => (
 
           <Text key={ index} onPress={ () => GetValue(item)} style={style.dropDownItem}  variant="bodyMedium">{item}</Text>
 

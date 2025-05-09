@@ -1,17 +1,15 @@
-import React, { Ref, useState } from 'react';
-import { View, Text, Button, StyleSheet, Dimensions } from 'react-native';
-import Modal from 'react-native-modal';
+import React, { ReactNode, Ref, } from 'react';
+import { View, Text, Button, StyleSheet, } from 'react-native';
+
 import { Modalize } from 'react-native-modalize';
 import { MD3Theme, Portal, useTheme } from 'react-native-paper';
 import ModalHeader from './modalHeader';
 import DefaultView from './defaultView';
-import PricePicker from './PricePicker';
-import CuisinePicker from './cuisinePicker';
-import data from "./../../mock/categories.json";
 
 
 
-export function HalfModal({ modalRef }: { modalRef: Ref<Modalize> }) {
+
+export function HalfModal({ modalRef, children,titre }: { modalRef: Ref<Modalize>, children:ReactNode,titre:string }) {
   const theme = useTheme();
     const style = styles(theme);
  return (
@@ -28,13 +26,9 @@ export function HalfModal({ modalRef }: { modalRef: Ref<Modalize> }) {
        overlayStyle={{ backgroundColor: `${theme.colors.inverseSurface}46`}} 
     >
 
-        <ModalHeader text="Filtres" card={false} />
+       <ModalHeader text={titre } card={false} />
        <DefaultView color={theme.colors.surface}>
-         <CuisinePicker label='Type de cuisines' cuisines={[ 'Tous', ...data.cuisines]}/>
-           <PricePicker childrenValue='Tous' label='Gamme de prix'/>
-        <Text style={style.paragraph}>
-          Swipe vers le bas ou tape à l’extérieur pour la fermer.
-        </Text>
+        {children}
         </DefaultView>
  
     </Modalize>
