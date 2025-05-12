@@ -11,7 +11,7 @@ export default function SignIn() {
     <View>
       <Text>Bienvenue, veuillez vous connecter</Text>
       <Button
-        title="Se connecter"
+        title="Se dz connecter"
         onPress={() => setUser({ id: 1, name: "Test" })}
       />
     </View>
