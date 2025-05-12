@@ -2,7 +2,7 @@ import { useAuth } from "@/context/authContext";
 import { Button, StyleSheet, View } from "react-native";
 import { MD3Theme, Text, useTheme } from "react-native-paper";
 
-export default function SignIn() {
+export default function Login() {
   const theme = useTheme();
   const style = styles(theme);
   const { setUser } = useAuth();

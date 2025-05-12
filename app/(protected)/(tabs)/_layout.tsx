@@ -1,6 +1,6 @@
 import { Tabs } from "expo-router";
 import { PaperProvider, useTheme } from "react-native-paper";
-import { lightTheme, darkTheme, fontConfig } from "../../constants/theme";
+import { lightTheme, darkTheme, fontConfig } from "../../../constants/theme";
 import { useColorScheme } from "react-native";
 import AccueilIcon from "@/assets/icons/accueil";
 import RestaurantIcon from "@/assets/icons/restaurants";

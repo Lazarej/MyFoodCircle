@@ -7,7 +7,7 @@ import * as SecureStore from 'expo-secure-store';
 type AuthContextType = {
   user: User;
   setUser: (user: User) => void;
-  logout: () => void;
+  logOut: () => void;
   isLoading: boolean;
 };
 
@@ -22,18 +22,19 @@ export const AuthProvider = ({ children} : {children:ReactNode}) => {
     setUserState(user);
     if (user) {
       await SecureStore.setItemAsync("user-id", String(user.id));
-      router.replace("/"); // ou /tabs
+      router.replace("/(protected)/(tabs)"); 
     }
   };
 
-  const logout = async () => {
+  const logOut = async () => {
     setUserState(null);
     await SecureStore.deleteItemAsync("user-id");
-    router.replace("/auth");
+    router.replace("/(auth)/login");
     };
     
      const loadUser = async () => {
-      const id = await SecureStore.getItemAsync("user-id");
+       const id = await SecureStore.getItemAsync("user-id");
+       console.log(id,'dzdz')
       if (id) {
         setUserState({ id: parseInt(id), name: "User" }); // tu peux fetch l'utilisateur complet ici
       }
@@ -41,12 +42,13 @@ export const AuthProvider = ({ children} : {children:ReactNode}) => {
     };
 
   useEffect(() => {
+    console.log('ded')
     loadUser();
   }, []);
 
 
   return (
-    <AuthContext.Provider value={{ user, setUser, logout, isLoading }}>
+    <AuthContext.Provider value={{ user, setUser, logOut, isLoading }}>
       {children}
     </AuthContext.Provider>
   );
