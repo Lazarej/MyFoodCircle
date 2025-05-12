@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "title": "Le Petit Bistrot",
+    "createdAt": "2024-03-21",
+    "rating": 4.5,
+    "cuisine": "French",
+    "address": "12 Rue de la Paix, 75002 Paris, France",
+    "image": "https://picsum.photos/200/250"
+  },
+  {
+    "id": 2,
+    "title": "Sushi Zen",
+    "createdAt": "2023-11-15",
+    "rating": 4.8,
+    "cuisine": "Japanese",
+    "address": "8 Rue Sainte-Anne, 75001 Paris, France",
+    "image": "https://picsum.photos/300/200"
+  },
+  {
+    "id": 3,
+    "title": "Pasta Nostra",
+    "createdAt": "2022-08-04",
+    "rating": 4.2,
+    "cuisine": "Italian",
+    "address": "45 Via Roma, 00184 Rome, Italy",
+    "image": "https://picsum.photos/250/300"
+  },
+  {
+    "id": 4,
+    "title": "Tandoori Palace",
+    "createdAt": "2024-01-10",
+    "rating": 4.6,
+    "cuisine": "Indian",
+    "address": "21 Brick Lane, London E1 6PU, United Kingdom",
+    "image": "https://picsum.photos/350/200"
+  },
+  {
+    "id": 5,
+    "title": "El Taco Loco",
+    "createdAt": "2025-05-27",
+    "rating": 4.0,
+    "cuisine": "Mexican",
+    "address": "100 Avenida Revolución, 22000 Tijuana, Mexico",
+    "image": "https://picsum.photos/200/350"
+  }
+]
