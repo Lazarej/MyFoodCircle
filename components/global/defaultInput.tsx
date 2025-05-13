@@ -14,6 +14,7 @@ type Props = {
   mode?: string;
   childrenLeft?: ReactNode;
   childrenRight?: ReactNode;
+  securetTextEntry?:boolean
 };
 
 export default function DefaultInput({
@@ -25,6 +26,7 @@ export default function DefaultInput({
   mode,
   childrenLeft,
   childrenRight,
+  securetTextEntry
 }: Props) {
   const theme = useTheme();
   const style = styles(theme);
@@ -51,8 +53,10 @@ export default function DefaultInput({
                 placeholderTextColor={theme.colors.secondary}
                 onChangeText={onChange}
                 value={value}
-                editable={editable}
-                style={style.input}
+            editable={editable}
+            secureTextEntry={securetTextEntry}
+            style={style.input}
+
               />
               {childrenRight ?? null}
             </View>
