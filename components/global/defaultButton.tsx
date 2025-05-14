@@ -7,7 +7,7 @@ const style = styles(theme);
 
   return (
       <TouchableOpacity style={style.button} onPress={() => func() }>
-          <Text variant='labelMedium'>Connection</Text> 
+          <Text style={style.text} variant='labelMedium'>Connection</Text> 
     </TouchableOpacity>
   )
 }
@@ -24,4 +24,8 @@ const styles = (theme: MD3Theme) => StyleSheet.create({
         alignItems:'center',
     backgroundColor:theme.colors.primary
   },
+
+  text: {
+    color: theme.colors.onPrimary
+  }
  })

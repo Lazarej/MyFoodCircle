@@ -125,7 +125,7 @@ return (
 const styles = (theme: MD3Theme) =>
   StyleSheet.create({
     container: {
-      marginVertical: 15,
+      marginBottom: 17,
     },
     searchCont: {
       width: "100%",
