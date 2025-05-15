@@ -7,7 +7,7 @@ const style = styles(theme);
 
   return (
       <TouchableOpacity style={style.button} onPress={() => func() }>
-          <Text style={style.text} variant='labelMedium'>Connection</Text> 
+      <Text style={style.text} variant='labelMedium'>{ value}</Text> 
     </TouchableOpacity>
   )
 }

@@ -38,9 +38,11 @@ export default function Login() {
           securetTextEntry={true}
         />
         <View style={style.helpCont}>
+          <Link href="../resetPassword">
           <Text variant="bodySmall" style={{ color: theme.colors.primary }}>
             Mot de passe oublié ?
           </Text>
+          </Link>
         </View>
       </View>
       <DefaultButton

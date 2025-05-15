@@ -11,7 +11,7 @@ type Props = {
   onChange: (text: string) => void;
   placeholder?: string;
   editable?: boolean;
-  mode?: string;
+  mode: string;
   childrenLeft?: ReactNode;
   childrenRight?: ReactNode;
   securetTextEntry?:boolean

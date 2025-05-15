@@ -32,6 +32,7 @@ const styles = (theme: MD3Theme) => StyleSheet.create({
       title: {
         fontSize: 30,
         marginTop: 40,
+        textAlign: "center",
       },
       text: {
         textAlign: "center",

@@ -126,7 +126,7 @@ export const darkTheme = {
     shadow: '#000000',
     inverseSurface: '#E6E1E5',
     inverseOnSurface: '#050000',
-    inversePrimary: '#4E61F6',
+    inversePrimary: '#BCC4FF',
 
 
   },
