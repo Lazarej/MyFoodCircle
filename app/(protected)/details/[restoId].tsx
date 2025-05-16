@@ -1,4 +1,4 @@
-import DropDownPicker from "@/components/dropDownPicker";
+import DropDownPicker from "@/components/global/dropDownPicker";
 import DefaultInput from "@/components/global/defaultInput";
 import DefaultView from "@/components/global/defaultView";
 import ModalHeader from "@/components/global/modalHeader";

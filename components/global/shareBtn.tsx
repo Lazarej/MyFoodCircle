@@ -7,7 +7,7 @@ import { useRef } from "react";
 import Restaurant from "@/constants/type/restaurant";
 import StarPicker from "./starsPicker";
 import DefaultInput from "./defaultInput";
-import DropDownPicker from "../dropDownPicker";
+import DropDownPicker from "./dropDownPicker";
 import friends from './../../mock/friends.json'
 
 
