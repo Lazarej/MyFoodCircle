@@ -41,7 +41,9 @@ export default function AvatarSelect() {
 
   return (
       <TouchableOpacity style={style.container} onPress={pickImage}>
-          <MaterialIcons style={style.icon} name="add-a-photo" size={24} color={theme.colors.primary } />
+      <View style={style.icon}>
+      <MaterialIcons  name="add-a-photo" size={18} color={theme.colors.surface } />
+          </View>
       <Image
         source={
           image
@@ -64,9 +66,17 @@ const styles = (theme: MD3Theme) =>
 
         icon: {
             position: 'absolute',
-            right: 3,
-            bottom: 7,
-            zIndex:10
+            right: -5,
+            bottom: 2,
+          zIndex: 10,
+          width: 35,
+          height: 35,
+          backgroundColor: theme.colors.primary,
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderRadius:30,
+          borderWidth: 2,
+          borderColor: theme.colors.surface
     },
     avatar: {
       width: 100,
