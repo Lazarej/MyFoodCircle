@@ -10,11 +10,11 @@ export default function ProtectedLayout() {
         
       <Stack  screenOptions={{ headerShown: false }} >
 
-            <>
+            
               <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
               <Stack.Screen name="modal/modalSearch" options={{ headerShown: false, presentation: "modal" }} />
               <Stack.Screen name="details/[restoId]" options={{ headerShown: false }} />
-            </>
+
 
         </Stack>
   
