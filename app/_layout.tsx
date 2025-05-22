@@ -1,4 +1,4 @@
-import { darkTheme, fontConfig, lightTheme } from "@/constants/theme";
+import { darkTheme, fontConfig, lightTheme } from "@/lib/theme";
 import Ionicons from "@expo/vector-icons/build/Ionicons";
 import { router, Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";

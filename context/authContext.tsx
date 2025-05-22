@@ -1,54 +1,70 @@
 // contexts/AuthContext.tsx
-import User from '@/constants/type/user';
+import User from '@/lib/mock/type/user';
 import { useRouter } from 'expo-router';
 import React, { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 import * as SecureStore from 'expo-secure-store';
+import axios from 'axios';
 
 type AuthContextType = {
   user: User;
   setUser: (user: User) => void;
   logOut: () => void;
+  register: (email:string, password:string) => void
   isLoading: boolean;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children} : {children:ReactNode}) => {
-   const [user, setUserState] = useState<User>(null);
+   const [auth, setAuthState] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
 
-  const setUser = async (user: User) => {
-    setUserState(user);
-    if (user) {
+  const setAuth = async (auth:boolean) => {
+    setAuthState(auth);
+    if (auth) {
       await SecureStore.setItemAsync("user-id", String(user.id));
       router.replace("/(protected)/(tabs)"); 
     }
   };
 
+  const register = async (email: string, password: string) => {
+    console.log('start')
+    try {
+      const response = await axios.post('http://192.168.1.9:1337/api/auth/local/register', {
+        username:email,
+        email,
+        password,
+      });
+      console.log('data', response.data);
+      await SecureStore.setItemAsync('userToken', response.data.jwt);
+    } catch (error) {
+      console.log(error);
+   
+    }
+
+  }
   const logOut = async () => {
-    setUserState(null);
-    await SecureStore.deleteItemAsync("user-id");
+    setAuthState(false);
+    await SecureStore.deleteItemAsync("userToken");
     router.replace("/(auth)/login");
     };
     
      const loadUser = async () => {
-       const id = await SecureStore.getItemAsync("user-id");
-       console.log(id,'dzdz')
-      if (id) {
-        setUserState({ id: parseInt(id), name: "User" }); // tu peux fetch l'utilisateur complet ici
+       const token = await SecureStore.getItemAsync("userToken");
+      if (token) {
+        setAuthState(prev => prev = true);
       }
       setIsLoading(false);
     };
 
   useEffect(() => {
-    console.log('ded')
     loadUser();
   }, []);
 
 
   return (
-    <AuthContext.Provider value={{ user, setUser, logOut, isLoading }}>
+    <AuthContext.Provider value={{ user, setUser, logOut, register, isLoading }}>
       {children}
     </AuthContext.Provider>
   );

@@ -6,7 +6,7 @@ import { MD3Theme, Text, useTheme } from "react-native-paper";
 import RestoCard from "@/components/global/restoCard";
 import debounce from "lodash.debounce";
 import restaurants from "../../../mock/resto.json";
-import Restaurant from "@/constants/type/restaurant";
+import Restaurant from "@/lib/mock/type/restaurant";
 import ModalHeader from "@/components/global/modalHeader";
 import { Link } from "expo-router";
 

@@ -1,6 +1,6 @@
 import { MD3Theme, Text, useTheme } from "react-native-paper";
 
-import { View, StyleSheet, Platform, Pressable, TextInput } from "react-native";
+import { View, StyleSheet, Platform, Pressable, TextInput, NativeSyntheticEvent, TextInputFocusEventData } from "react-native";
 import React, { ReactNode, useState } from "react";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { SearchBar } from "react-native-screens";
@@ -14,7 +14,9 @@ type Props = {
   mode: string;
   childrenLeft?: ReactNode;
   childrenRight?: ReactNode;
-  securetTextEntry?:boolean
+  securetTextEntry?: boolean;
+  onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
+  errorMessage?: string;
 };
 
 export default function DefaultInput({
@@ -26,7 +28,9 @@ export default function DefaultInput({
   mode,
   childrenLeft,
   childrenRight,
-  securetTextEntry
+  securetTextEntry,
+  onBlur,
+  errorMessage,
 }: Props) {
   const theme = useTheme();
   const style = styles(theme);
@@ -34,98 +38,100 @@ export default function DefaultInput({
   const [showPicker, setShowPicker] = useState(false);
 
   const modes = {
-  input: <View style={style.container}>
-          <Text variant="labelMedium">{label}</Text>
+    input: (
+      <View style={style.container}>
+        <Text variant="labelMedium">{label}</Text>
+        <View style={style.searchCont}>
+          <View
+            style={
+              editable === false
+                ? {
+                    ...style.search,
+                    backgroundColor: theme.colors.background,
+                  }
+                : style.search
+            }
+          >
+            {childrenLeft ?? null}
+            <TextInput
+              placeholder={placeholder}
+              placeholderTextColor={theme.colors.secondary}
+              onChangeText={onChange}
+              value={value}
+              editable={editable}
+              secureTextEntry={securetTextEntry}
+              style={style.input}
+              onBlur={onBlur}
+            />
+            {childrenRight ?? null}
+          </View>
+        </View>
+        <Text variant="bodySmall" style={{color:theme.colors.error}}>{errorMessage}</Text>
+      </View>
+    ),
+    date: (
+      <View style={style.container}>
+        <Text variant="labelMedium">{label}</Text>
+        <Pressable onPress={() => console.log("ff")}>
           <View style={style.searchCont}>
             <View
-              style={
-                editable === false
-                  ? {
-                      ...style.search,
-                      backgroundColor: theme.colors.background,
-                    }
-                  : style.search
-              }
+              style={{
+                ...style.search,
+                height: 55,
+                justifyContent: "space-between",
+              }}
             >
               {childrenLeft ?? null}
-              <TextInput
-                placeholder={placeholder}
-                placeholderTextColor={theme.colors.secondary}
-                onChangeText={onChange}
-                value={value}
-            editable={editable}
-            secureTextEntry={securetTextEntry}
-            style={style.input}
-
-              />
-              {childrenRight ?? null}
-            </View>
-          </View>
-        </View>,
-  date: <View style={style.container}>
-          <Text variant="labelMedium">{label}</Text>
-          <Pressable onPress={() => console.log("ff")}>
-            <View style={style.searchCont}>
-              <View
-                style={{
-                  ...style.search,
-                  height: 55,
-                  justifyContent: "space-between",
+              <DateTimePicker
+                maximumDate={new Date()}
+                accentColor={theme.colors.primary}
+                value={new Date()}
+                mode="date"
+                onChange={() => {
+                  setShowPicker(false);
+                  onChange;
                 }}
-              >
-                {childrenLeft ?? null}
-                <DateTimePicker
-                  maximumDate={new Date()}
-                  accentColor={theme.colors.primary}
-                  value={new Date()}
-                  mode="date"
-                  onChange={() => {
-                    setShowPicker(false);
-                    onChange;
-                  }}
-                />
-                {childrenRight ?? null}
-              </View>
-            </View>
-          </Pressable>
-        </View>,
-  textarea: <View style={style.container}>
-          <Text variant="labelMedium">{label}</Text>
-          <View style={{...style.searchCont, height:250}}>
-            <View
-              style={
-          {...style.search, height:250,}
-              }
-            >
-              {childrenLeft ?? null}
-              <TextInput
-                placeholder={placeholder}
-                placeholderTextColor={theme.colors.secondary}
-          onChangeText={onChange}
-          multiline={true}
-          
-                value={value}
-                editable={editable}
-                style={{...style.input, textAlignVertical: 'top', height:250,  padding:15}}
               />
               {childrenRight ?? null}
             </View>
           </View>
-        </View>,
-};
+        </Pressable>
+      </View>
+    ),
+    textarea: (
+      <View style={style.container}>
+        <Text variant="labelMedium">{label}</Text>
+        <View style={{ ...style.searchCont, height: 250 }}>
+          <View style={{ ...style.search, height: 250 }}>
+            {childrenLeft ?? null}
+            <TextInput
+              placeholder={placeholder}
+              placeholderTextColor={theme.colors.secondary}
+              onChangeText={onChange}
+              multiline={true}
+              value={value}
+              editable={editable}
+              style={{
+                ...style.input,
+                textAlignVertical: "top",
+                height: 250,
+                padding: 15,
+              }}
+            />
+            {childrenRight ?? null}
+          </View>
+        </View>
+      </View>
+    ),
+  };
 
-return (
-  <View>
-    {modes[mode] ?? <Text>❓ Mode inconnu</Text>}
-  </View>
-);
-
+  return <View>{modes[mode] ?? <Text>❓ Mode inconnu</Text>}</View>;
 }
 
 const styles = (theme: MD3Theme) =>
   StyleSheet.create({
     container: {
-      marginBottom: 17,
+      marginBottom: 10,
     },
     searchCont: {
       width: "100%",

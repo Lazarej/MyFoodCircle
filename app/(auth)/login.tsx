@@ -5,6 +5,7 @@ import DefaultInput from "@/components/global/defaultInput";
 import DefaultView from "@/components/global/defaultView";
 import { useAuth } from "@/context/authContext";
 import { Link } from "expo-router";
+import { useState } from "react";
 import { Button, StyleSheet, View, Image } from "react-native";
 import { Divider, MD3Theme, Text, useTheme } from "react-native-paper";
 
@@ -12,6 +13,11 @@ export default function Login() {
   const theme = useTheme();
   const style = styles(theme);
   const { setUser } = useAuth();
+
+  const [form, setForm] = useState({
+    email: '',
+    password: '',
+  })
 
   return (
     <DefaultView color={theme.colors.surface}>

@@ -14,7 +14,7 @@ import {
 import { Modalize } from "react-native-modalize";
 import { MD3Theme, Text, useTheme } from "react-native-paper";
 import resto from "../../../mock/resto.json";
-import Restaurant from "@/constants/type/restaurant";
+import Restaurant from "@/lib/mock/type/restaurant";
 import RestoCard from "@/components/global/restoCard";
 import ShareBtn from "@/components/global/shareBtn";
 import PricePicker from "@/components/global/PricePicker";
