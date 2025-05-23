@@ -9,6 +9,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AuthProvider } from "@/context/authContext";
 import Navigator from "@/components/nav/navigator";
+import KeyboardDismissWrapper from "@/components/global/keyboardDismissWrapper";
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -22,7 +23,9 @@ export default function RootLayout() {
       <GestureHandlerRootView>
         <PaperProvider theme={theme}>
           <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.surface }}>
+
             <Navigator/>
+
           </SafeAreaView>
         </PaperProvider>
       </GestureHandlerRootView>

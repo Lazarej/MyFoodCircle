@@ -8,7 +8,7 @@ import Restaurant from "@/lib/mock/type/restaurant";
 import StarPicker from "./starsPicker";
 import DefaultInput from "./defaultInput";
 import DropDownPicker from "./dropDownPicker";
-import friends from './../../mock/friends.json'
+import friends from "../../lib/mock/friends.json"
 
 
 

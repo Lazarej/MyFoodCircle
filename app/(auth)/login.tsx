@@ -12,12 +12,27 @@ import { Divider, MD3Theme, Text, useTheme } from "react-native-paper";
 export default function Login() {
   const theme = useTheme();
   const style = styles(theme);
-  const { setUser } = useAuth();
+  const { logIn } = useAuth();
 
   const [form, setForm] = useState({
-    email: '',
-    password: '',
-  })
+    email: "",
+    password: "",
+  });
+  const [error, setError] = useState("");
+
+  const onChangeValue = (key: string, value: string) => {
+    setForm((prev) => ({ ...prev, [key]: value }));
+  };
+
+  const handleLogIn = async () => {
+    const errorMessage = await logIn(form.email, form.password);
+
+    if (errorMessage) {
+      setError("Email ou mot de passe incorrect");
+    } else {
+      setError("");
+    }
+  };
 
   return (
     <DefaultView color={theme.colors.surface}>
@@ -32,29 +47,33 @@ export default function Login() {
       <View style={style.form}>
         <DefaultInput
           label="Email"
-          value=""
-          onChange={() => null}
+          value={form.email}
+          onChange={(value) => onChangeValue("email", value)}
           mode="input"
+          keyboardType="email-address"
+          autoComplete="email"
+
         />
         <DefaultInput
           label="Mot de passe"
-          value=""
-          onChange={() => null}
+          value={form.password}
+          onChange={(value) => onChangeValue("password", value)}
           mode="input"
-          securetTextEntry={true}
+          secureTextEntry={true}
+          autoComplete="password"
         />
         <View style={style.helpCont}>
           <Link href="../resetPassword">
-          <Text variant="bodySmall" style={{ color: theme.colors.primary }}>
-            Mot de passe oublié ?
-          </Text>
+            <Text variant="bodySmall" style={{ color: theme.colors.primary }}>
+              Mot de passe oublié ?
+            </Text>
           </Link>
         </View>
       </View>
-      <DefaultButton
-        value="Connection"
-        func={() => setUser({ id: 1, name: "User" })}
-      />
+      <Text variant="bodySmall" style={{ color: theme.colors.error }}>
+        {error}
+      </Text>
+      <DefaultButton value="Connection" func={() => handleLogIn()} />
       <Text variant="bodyMedium">
         Pas de compte ?
         <Link replace href="../signUp" style={{ color: theme.colors.primary }}>
@@ -85,7 +104,7 @@ const styles = (theme: MD3Theme) =>
     },
 
     form: {
-      marginVertical: 20,
+      marginTop: 20,
     },
 
     helpCont: {

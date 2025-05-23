@@ -13,13 +13,13 @@ import {
 } from "react-native";
 import { Modalize } from "react-native-modalize";
 import { MD3Theme, Text, useTheme } from "react-native-paper";
-import resto from "../../../mock/resto.json";
+import resto from "./../../../lib/mock/resto.json";
 import Restaurant from "@/lib/mock/type/restaurant";
 import RestoCard from "@/components/global/restoCard";
 import ShareBtn from "@/components/global/shareBtn";
 import PricePicker from "@/components/global/PricePicker";
 import CuisinePicker from "@/components/global/cuisinePicker";
-import data from "../../../mock/categories.json";
+import data from "./../../../lib/mock/categories.json";
 
 
 export default function RestaurantView() {

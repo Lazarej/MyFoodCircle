@@ -5,7 +5,7 @@ import { Text } from "react-native-paper";
 
 
 export default function Navigator() {
-  const { user, isLoading } = useAuth();
+  const { auth, isLoading } = useAuth();
     const colorScheme = useColorScheme();
  
 

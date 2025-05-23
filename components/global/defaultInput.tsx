@@ -1,22 +1,25 @@
 import { MD3Theme, Text, useTheme } from "react-native-paper";
 
-import { View, StyleSheet, Platform, Pressable, TextInput, NativeSyntheticEvent, TextInputFocusEventData } from "react-native";
+import { View, StyleSheet, Platform, Pressable, TextInput, NativeSyntheticEvent, TextInputFocusEventData, KeyboardTypeOptions, TextInputProps } from "react-native";
 import React, { ReactNode, useState } from "react";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { SearchBar } from "react-native-screens";
 
 type Props = {
   label: string;
-  value: string | number;
+  value: string;
   onChange: (text: string) => void;
   placeholder?: string;
   editable?: boolean;
-  mode: string;
+  mode:  "input" | "date" | "textarea";
   childrenLeft?: ReactNode;
   childrenRight?: ReactNode;
-  securetTextEntry?: boolean;
+  secureTextEntry?: boolean;
   onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
   errorMessage?: string;
+  keyboardType?: KeyboardTypeOptions;                
+  autoComplete?: TextInputProps['autoComplete']; 
+
 };
 
 export default function DefaultInput({
@@ -28,9 +31,12 @@ export default function DefaultInput({
   mode,
   childrenLeft,
   childrenRight,
-  securetTextEntry,
+  secureTextEntry,
   onBlur,
   errorMessage,
+  keyboardType,
+  autoComplete,
+
 }: Props) {
   const theme = useTheme();
   const style = styles(theme);
@@ -59,9 +65,12 @@ export default function DefaultInput({
               onChangeText={onChange}
               value={value}
               editable={editable}
-              secureTextEntry={securetTextEntry}
+              secureTextEntry={secureTextEntry}
               style={style.input}
               onBlur={onBlur}
+              keyboardType={keyboardType}
+              autoComplete={autoComplete}
+              autoComplete="off"  
             />
             {childrenRight ?? null}
           </View>
@@ -149,16 +158,18 @@ const styles = (theme: MD3Theme) =>
       alignItems: "center",
       paddingHorizontal: 0,
       backgroundColor: theme.colors.surface,
-      paddingRight: 5,
+      overflow:'hidden'
     },
 
     input: {
       fontSize: 16,
       height: "100%",
+
       color: theme.colors.secondary,
       flex: 1,
       lineHeight: -20,
       paddingLeft: 10,
       outline: "none",
+      
     },
   });

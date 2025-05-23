@@ -2,6 +2,7 @@ import PresentationCont from "@/components/auth/presentation";
 import DefaultButton from "@/components/global/defaultButton";
 import DefaultInput from "@/components/global/defaultInput";
 import DefaultView from "@/components/global/defaultView";
+import KeyboardDismissWrapper from "@/components/global/keyboardDismissWrapper";
 import { useAuth } from "@/context/authContext";
 import { Link } from "expo-router";
 import { useState } from "react";
@@ -16,11 +17,13 @@ export default function SignUp() {
     email: "",
     password: "",
     checkPassword: "",
+     general:""
   });
   const [form, setForm] = useState({
     email: "",
     password: "",
     checkPassword: "",
+   
   });
 
   const onChangeValue = (key: string, value: string) => {
@@ -30,7 +33,7 @@ export default function SignUp() {
   const validatePassword = () => {
     const regexPassword = /^(?=.*[A-Z])(?=.*\d).{6,}$/;
     const resultPassword = regexPassword.test(form.password);
-    
+
     if (!resultPassword) {
       setFormError((prev) => ({
         ...prev,
@@ -40,9 +43,9 @@ export default function SignUp() {
     } else {
       setFormError((prev) => ({ ...prev, password: "" }));
     }
-  }
+  };
 
-  const security =  () =>  {
+  const security = () => {
     let hasError = false;
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const regexPassword = /^(?=.*[A-Z])(?=.*\d).{6,}$/;
@@ -50,7 +53,7 @@ export default function SignUp() {
     const resultEmail = regexEmail.test(form.email);
 
     if (!resultPassword) {
-      hasError = true
+      hasError = true;
       setFormError((prev) => ({
         ...prev,
         password:
@@ -61,7 +64,7 @@ export default function SignUp() {
     }
 
     if (!resultEmail) {
-      hasError = true
+      hasError = true;
       setFormError((prev) => ({
         ...prev,
         email: "Adresse email invalide",
@@ -71,7 +74,7 @@ export default function SignUp() {
     }
 
     if (form.password !== form.checkPassword) {
-      hasError = true
+      hasError = true;
       setFormError((prev) => ({
         ...prev,
         checkPassword: "Les mots de passe ne correspondent pas",
@@ -80,65 +83,91 @@ export default function SignUp() {
       setFormError((prev) => ({ ...prev, password: "" }));
     }
 
-    return hasError
+    return hasError;
   };
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     if (!security()) {
-      register(form.email, form.password)
+      const errorMessage = await register(form.email, form.password);
+
+      if (errorMessage === "Email or Username are already taken") {
+        setFormError((prev) => ({
+          ...prev,
+          general:
+            "Ce compte existe déja",
+        }));
+      } else if (errorMessage) {
+        setFormError((prev) => ({
+          ...prev,
+          general:
+            errorMessage
+        }));
+      } else {
+        setFormError((prev) => ({
+          ...prev,
+          general:
+            "",
+        }));
+      }
     }
   };
 
   return (
     <DefaultView color={theme.colors.surface}>
-      <PresentationCont
-        icon={require("../../assets/images/Wave.png")}
-        title="S'incrire"
-        text="Petit text histoire de mettre un truc, a voir si on l'enlève ou pas
+        <PresentationCont
+          icon={require("../../assets/images/Wave.png")}
+          title="S'incrire"
+          text="Petit text histoire de mettre un truc, a voir si on l'enlève ou pas
                         parce que pas forcement néccesaire"
-      />
-      <View style={style.form}>
-        <DefaultInput
-          label="Email"
-          value={form.email}
-          onChange={(value) => onChangeValue("email", value)}
-          mode="input"
-          errorMessage={formError.email}
         />
-        <DefaultInput
-          label="Mot de passe"
-          value={form.password}
-          onChange={(value) => onChangeValue("password", value)}
-          mode="input"
-          securetTextEntry={true}
-          onBlur={() => validatePassword()}
-          errorMessage={formError.password}
-        />
-        <DefaultInput
-          label="Confirmation mot de passe"
-          value={form.checkPassword}
-          onChange={(value) => onChangeValue("checkPassword", value)}
-          mode="input"
-          securetTextEntry={true}
-          errorMessage={formError.checkPassword}
-        />
-      </View>
-
-      <DefaultButton value="Créer son compte" func={() => handleRegister()} />
-      <Text variant="bodyMedium">
-        Vous avez un compte?
-        <Link replace href="../login" style={{ color: theme.colors.primary }}>
-          {" "}
-          Connectez vous
-        </Link>
-      </Text>
-    </DefaultView>
+        <View style={style.form}>
+          <DefaultInput
+            label="Email"
+            value={form.email}
+            onChange={(value) => onChangeValue("email", value)}
+            mode="input"
+            errorMessage={formError.email}
+            keyboardType="email-address"
+            autoComplete="email"
+          />
+          <DefaultInput
+            label="Mot de passe"
+            value={form.password}
+            onChange={(value) => onChangeValue("password", value)}
+            mode="input"
+            secureTextEntry={true}
+            onBlur={() => validatePassword()}
+            errorMessage={formError.password}
+            autoComplete="password"
+          />
+          <DefaultInput
+            label="Confirmation mot de passe"
+            value={form.checkPassword}
+            onChange={(value) => onChangeValue("checkPassword", value)}
+            mode="input"
+            secureTextEntry={true}
+            errorMessage={formError.checkPassword}
+            autoComplete="password"
+          />
+        </View>
+        <Text variant="bodySmall" style={{ color: theme.colors.error }}>
+        {formError.general}
+      </Text> 
+        <DefaultButton value="Créer son compte" func={() => handleRegister()} />
+        <Text variant="bodyMedium">
+          Vous avez un compte?
+          <Link replace href="../login" style={{ color: theme.colors.primary }}>
+            {" "}
+            Connectez vous
+          </Link>
+        </Text>
+      </DefaultView>
   );
 }
 
 const styles = (theme: MD3Theme) =>
   StyleSheet.create({
     form: {
-      marginVertical: 20,
+      marginTop: 20,
     },
   });

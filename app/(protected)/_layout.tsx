@@ -2,10 +2,10 @@ import { useAuth } from "@/context/authContext";
 import { Redirect, Stack } from "expo-router";
 
 export default function ProtectedLayout() {
-    const { user, isLoading } = useAuth();
-    console.log('User loaded:', user);
+    const { auth } = useAuth();
+    console.log('User loaded:', auth);
     
-    if(!user){return <Redirect href={'/(auth)/login'}/> }
+    if(!auth){return <Redirect href={'/(auth)/login'}/> }
     return (
         
       <Stack  screenOptions={{ headerShown: false }} >

@@ -22,7 +22,7 @@ import {
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { MD3Theme, useTheme, Text } from "react-native-paper";
-import data from "../../../mock/categories.json";
+import data from "./../../../lib/mock/categories.json"
 
 export default function RestaurantData() {
   const theme = useTheme();

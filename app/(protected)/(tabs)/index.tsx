@@ -11,7 +11,7 @@ import {
   Pressable,
 } from "react-native";
 import { MD3Theme, Text, useTheme } from "react-native-paper";
-import restaurants from "../../../mock/resto.json";
+import restaurants from "./../../../lib/mock/resto.json";
 import ShareBtn from "@/components/global/shareBtn";
 
 export default function accueilView() {
