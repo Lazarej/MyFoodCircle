@@ -60,6 +60,7 @@ export default function RestaurantData() {
                 <MaterialIcons
                   name="do-not-disturb"
                   size={24}
+                  style={{marginRight:10}}
                   color={theme.colors.error}
                 />
               }
@@ -74,6 +75,7 @@ export default function RestaurantData() {
                 <MaterialIcons
                   name="do-not-disturb"
                   size={24}
+                  style={{marginRight:10}} 
                   color={theme.colors.error}
                 />
               }

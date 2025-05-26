@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const logIn = async (email: string, password: string) => {
     try {
       const response = await axios.post(
-        "http://192.168.1.9:1337/api/auth/local",
+        "http://192.168.0.14:1337/api/auth/local",
         {
           identifier: email,
           password,
@@ -49,22 +49,27 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const register = async (email: string, password: string) => {
+  const register = async (email: string, password: string, username: string) => {
+    console.log('start',username,
+      email,
+      password,)
     try {
       const response = await axios.post(
-        "http://192.168.1.9:1337/api/auth/local/register",
+        "http://192.168.0.14:1337/api/auth/local/register",
         {
-          username: email,
+          username,
           email,
           password,
         }
       );
-  
+      console.log('response',response)
       await SecureStore.setItemAsync("userToken", response.data.jwt);
       router.replace("/(protected)/(tabs)");
-      setAuthState(true); // ensuite seulement
+      setAuthState(true); 
     } catch (error) {
+      console.log(error)
       if (axios.isAxiosError(error)) {
+        console.log(error)
         const strapiError = error.response?.data?.error?.message;
         return strapiError;
       } else {
@@ -72,6 +77,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       }
     }
   };
+
   const logOut = async () => {
     await SecureStore.deleteItemAsync("userToken");
     router.replace("/(auth)/login");

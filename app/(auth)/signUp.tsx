@@ -7,6 +7,7 @@ import { useAuth } from "@/context/authContext";
 import { Link } from "expo-router";
 import { useState } from "react";
 import { StyleSheet, View } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 import { MD3Theme, Text, useTheme } from "react-native-paper";
 
 export default function SignUp() {
@@ -17,13 +18,14 @@ export default function SignUp() {
     email: "",
     password: "",
     checkPassword: "",
-     general:""
+    username: "",
+    general: "",
   });
   const [form, setForm] = useState({
     email: "",
     password: "",
     checkPassword: "",
-   
+    username: "",
   });
 
   const onChangeValue = (key: string, value: string) => {
@@ -45,75 +47,79 @@ export default function SignUp() {
     }
   };
 
-  const security = () => {
-    let hasError = false;
-    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const regexPassword = /^(?=.*[A-Z])(?=.*\d).{6,}$/;
-    const resultPassword = regexPassword.test(form.password);
-    const resultEmail = regexEmail.test(form.email);
+  
+const security = () => {
+  let hasError = false;
+  const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const regexPassword = /^(?=.*[A-Z])(?=.*\d).{6,}$/;
+  const regexUsername = /^[a-zA-Z0-9_-]{3,10}$/;
 
-    if (!resultPassword) {
-      hasError = true;
-      setFormError((prev) => ({
-        ...prev,
-        password:
-          "doit avoir au moins 1 majuscule, 1 chiffre, et 6 caractères min",
-      }));
-    } else {
-      setFormError((prev) => ({ ...prev, password: "" }));
-    }
+  const resultPassword = regexPassword.test(form.password);
+  const resultEmail = regexEmail.test(form.email);
+  const resultUsername = regexUsername.test(form.username);
 
-    if (!resultEmail) {
-      hasError = true;
-      setFormError((prev) => ({
-        ...prev,
-        email: "Adresse email invalide",
-      }));
-    } else {
-      setFormError((prev) => ({ ...prev, password: "" }));
-    }
-
-    if (form.password !== form.checkPassword) {
-      hasError = true;
-      setFormError((prev) => ({
-        ...prev,
-        checkPassword: "Les mots de passe ne correspondent pas",
-      }));
-    } else {
-      setFormError((prev) => ({ ...prev, password: "" }));
-    }
-
-    return hasError;
+  let errors = {
+    email: "",
+    password: "",
+    checkPassword: "",
+    username: "",
+    general: "",
   };
+
+  if (!resultPassword) {
+    hasError = true;
+    errors.password = "doit avoir au moins 1 majuscule, 1 chiffre, et 6 caractères min";
+  }
+
+  if (!resultEmail) {
+    hasError = true;
+    errors.email = "Adresse email invalide";
+  }
+
+  if (!resultUsername) {
+    hasError = true;
+    errors.username = "doit avoir entre 3 et 10 caractères";
+  }
+
+  if (form.password !== form.checkPassword) {
+    hasError = true;
+    errors.checkPassword = "Les mots de passe ne correspondent pas";
+  }
+
+  setFormError(errors);
+  return hasError;
+};
 
   const handleRegister = async () => {
     if (!security()) {
-      const errorMessage = await register(form.email, form.password);
+      const errorMessage = await register(
+        form.email,
+        form.password,
+        form.username
+      );
 
       if (errorMessage === "Email or Username are already taken") {
         setFormError((prev) => ({
           ...prev,
-          general:
-            "Ce compte existe déja",
+          general: "Le pseudo ou l'email existe déja",
         }));
       } else if (errorMessage) {
         setFormError((prev) => ({
           ...prev,
-          general:
-            errorMessage
+          general: errorMessage,
         }));
       } else {
         setFormError((prev) => ({
           ...prev,
-          general:
-            "",
+          general: "",
         }));
       }
     }
   };
 
   return (
-    <DefaultView color={theme.colors.surface}>
+    <ScrollView style={{ flex: 1, backgroundColor: "black" }}>
+      <DefaultView color={theme.colors.surface}>
         <PresentationCont
           icon={require("../../assets/images/Wave.png")}
           title="S'incrire"
@@ -121,6 +127,14 @@ export default function SignUp() {
                         parce que pas forcement néccesaire"
         />
         <View style={style.form}>
+          <DefaultInput
+            label="Pseudo"
+            value={form.username}
+            onChange={(value) => onChangeValue("username", value)}
+            mode="input"
+            errorMessage={formError.username}
+            autoComplete="username"
+          />
           <DefaultInput
             label="Email"
             value={form.email}
@@ -151,8 +165,8 @@ export default function SignUp() {
           />
         </View>
         <Text variant="bodySmall" style={{ color: theme.colors.error }}>
-        {formError.general}
-      </Text> 
+          {formError.general}
+        </Text>
         <DefaultButton value="Créer son compte" func={() => handleRegister()} />
         <Text variant="bodyMedium">
           Vous avez un compte?
@@ -162,6 +176,7 @@ export default function SignUp() {
           </Link>
         </Text>
       </DefaultView>
+    </ScrollView>
   );
 }
 

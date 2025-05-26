@@ -1,9 +1,10 @@
 import { MD3Theme, Text, useTheme } from "react-native-paper";
 
-import { View, StyleSheet, Platform, Pressable, TextInput, NativeSyntheticEvent, TextInputFocusEventData, KeyboardTypeOptions, TextInputProps } from "react-native";
+import { View, StyleSheet, Platform, Pressable, TextInput, NativeSyntheticEvent, TextInputFocusEventData, KeyboardTypeOptions, TextInputProps, TouchableOpacity } from "react-native";
 import React, { ReactNode, useState } from "react";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { SearchBar } from "react-native-screens";
+import AntDesign from "@expo/vector-icons/build/AntDesign";
 
 type Props = {
   label: string;
@@ -42,6 +43,7 @@ export default function DefaultInput({
   const style = styles(theme);
 
   const [showPicker, setShowPicker] = useState(false);
+  const [hide, setHide] = useState(secureTextEntry)
 
   const modes = {
     input: (
@@ -65,16 +67,19 @@ export default function DefaultInput({
               onChangeText={onChange}
               value={value}
               editable={editable}
-              secureTextEntry={secureTextEntry}
+              secureTextEntry={hide}
               style={style.input}
               onBlur={onBlur}
               keyboardType={keyboardType}
-              autoComplete={autoComplete}
-              autoComplete="off"  
+              autoComplete={autoComplete} 
             />
             {childrenRight ?? null}
           </View>
+          {secureTextEntry && <TouchableOpacity hitSlop={20}  style={{ position: 'absolute', right: 10 }} onPress={() => setHide(prev => prev= !prev)}>
+            <AntDesign name="eyeo" size={24} color={theme.colors.primary} />
+          </TouchableOpacity>}
         </View>
+        
         <Text variant="bodySmall" style={{color:theme.colors.error}}>{errorMessage}</Text>
       </View>
     ),
@@ -88,6 +93,7 @@ export default function DefaultInput({
                 ...style.search,
                 height: 55,
                 justifyContent: "space-between",
+                paddingRight:10,
               }}
             >
               {childrenLeft ?? null}
@@ -143,8 +149,10 @@ const styles = (theme: MD3Theme) =>
       marginBottom: 10,
     },
     searchCont: {
+      position:"relative",
       width: "100%",
       justifyContent: "center",
+
       marginTop: 10,
       height: 50,
     },
