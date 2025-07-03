@@ -4,11 +4,11 @@ import Entypo from "@expo/vector-icons/build/Entypo";
 import { HalfModal } from "./halfModal";
 import { Modalize } from "react-native-modalize";
 import { useRef } from "react";
-import Restaurant from "@/constants/type/restaurant";
+import Restaurant from "@/lib/mock/type/restaurant";
 import StarPicker from "./starsPicker";
 import DefaultInput from "./defaultInput";
-import DropDownPicker from "../dropDownPicker";
-import friends from './../../mock/friends.json'
+import DropDownPicker from "./dropDownPicker";
+import friends from "../../lib/mock/friends.json"
 
 
 

@@ -1,7 +1,7 @@
 import Entypo from "@expo/vector-icons/build/Entypo";
 import { StyleSheet, View, Platform, Image, Pressable, TouchableOpacity } from "react-native";
 import { Chip, MD3Theme, Surface, Text, useTheme } from "react-native-paper";
-import Restaurant from "@/constants/type/restaurant";
+import Restaurant from "@/lib/mock/type/restaurant";
 import { Link, router, usePathname } from "expo-router";
 import { ReactNode } from "react";
 

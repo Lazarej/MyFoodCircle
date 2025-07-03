@@ -1,4 +1,4 @@
-import DropDownPicker from "@/components/dropDownPicker";
+import DropDownPicker from "@/components/global/dropDownPicker";
 import DefaultInput from "@/components/global/defaultInput";
 import DefaultView from "@/components/global/defaultView";
 import ModalHeader from "@/components/global/modalHeader";
@@ -22,7 +22,7 @@ import {
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { MD3Theme, useTheme, Text } from "react-native-paper";
-import data from "./../../mock/categories.json";
+import data from "./../../../lib/mock/categories.json"
 
 export default function RestaurantData() {
   const theme = useTheme();
@@ -60,6 +60,7 @@ export default function RestaurantData() {
                 <MaterialIcons
                   name="do-not-disturb"
                   size={24}
+                  style={{marginRight:10}}
                   color={theme.colors.error}
                 />
               }
@@ -74,6 +75,7 @@ export default function RestaurantData() {
                 <MaterialIcons
                   name="do-not-disturb"
                   size={24}
+                  style={{marginRight:10}} 
                   color={theme.colors.error}
                 />
               }
